@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "BuilderHelper",
+  "version": "${version}",
+  "name": "BuilderHelper",
+  "description": "Helpers for building. Bits and Chisels support!",
+  "authors": [
+    "Sms_Gamer_3808"
+  ],
+  "contact": {
+    "repo": "https://github.com/True-cc/BuilderHelper"
+  },
+  "license": "MIT",
+  "icon": "assets/BuilderHelper/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "uwu.smsgamer.builderhelper.client.BuilderHelperClient"
+    ],
+    "main": [
+      "uwu.smsgamer.builderhelper.BuilderHelper"
+    ]
+  },
+  "mixins": [
+    "BuilderHelper.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.11.3",
+    "fabric": "*",
+    "minecraft": "1.16.5"
+  }
+}
