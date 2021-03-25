@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "BuilderHelper",
+  "id": "builder_helper",
   "version": "${version}",
   "name": "BuilderHelper",
   "description": "Helpers for building. Bits and Chisels support!",
