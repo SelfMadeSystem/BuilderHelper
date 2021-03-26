@@ -12,6 +12,7 @@ group = project.maven_group
 
 repositories {
     maven { url 'https://jitpack.io' }
+    maven { url 'https://maven.enginehub.org/repo/' }
 }
 
 dependencies {
@@ -26,7 +27,10 @@ dependencies {
     // PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
     // You may need to force-disable transitiveness on them.
 
-//    implementation 'com.github.CoolMineman:BitsAndChisels:master-SNAPSHOT'
+//    implementation "com.sk89q.worldedit:worldedit-core:7.3.0-SNAPSHOT:20210310.094627-21"
+//    modImplementation "com.sk89q.worldedit:worldedit-fabric-mc1.16.4:7.3.0-SNAPSHOT"
+
+//    modImplementation 'com.github.CoolMineman:BitsAndChisels:master-SNAPSHOT'
 }
 
 processResources {

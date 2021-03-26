@@ -1,41 +1,43 @@
 package uwu.smsgamer.builderhelper.items;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.command.FillCommand;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import uwu.smsgamer.builderhelper.screens.BlockScreen;
 
-import java.util.Iterator;
-import java.util.function.Function;
-
-public class BuildHelperItem extends Item {
-    public BuildHelperItem(Settings settings) {
+public class FillItem extends Item {
+    public FillItem(Settings settings) {
         super(settings);
     }
 
     @Override
     public boolean canMine(BlockState state, World world, BlockPos pos, PlayerEntity miner) {
-        CompoundTag tag = miner.getMainHandStack().getOrCreateSubTag("pos1");
-        BlockPos blockPos = pos;
+        ItemStack stack = miner.getMainHandStack();
+        if (miner.isSneaking()) {
+            CompoundTag pos1 = stack.getOrCreateSubTag("pos1");
+            CompoundTag pos2 = stack.getOrCreateSubTag("pos2");
+
+            new FillStuff(world, pos1, pos2).fill(Blocks.AIR.getDefaultState()); // I wanna use WorldEdit.
+
+            return false;
+        }
+        CompoundTag tag = stack.getOrCreateSubTag("pos1");
 
         boolean different = (!tag.contains("x") ||
-                (tag.getInt("x") != blockPos.getX()) ||
-                (tag.getInt("y") != blockPos.getY()) ||
-                (tag.getInt("z") != blockPos.getZ()));
+                (tag.getInt("x") != pos.getX()) ||
+                (tag.getInt("y") != pos.getY()) ||
+                (tag.getInt("z") != pos.getZ()));
 
-        tag.putInt("x", blockPos.getX());
-        tag.putInt("y", blockPos.getY());
-        tag.putInt("z", blockPos.getZ());
+        tag.putInt("x", pos.getX());
+        tag.putInt("y", pos.getY());
+        tag.putInt("z", pos.getZ());
 
         if (world.isClient() && different) {
-            miner.sendMessage(new TranslatableText("message.builder_helper.pos2", blockPos.getX(), blockPos.getY(), blockPos.getZ()), false);
+            miner.sendMessage(new TranslatableText("message.builder_helper.pos2", pos.getX(), pos.getY(), pos.getZ()), false);
         }
 
         return false;
@@ -44,14 +46,11 @@ public class BuildHelperItem extends Item {
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
         if (context.getPlayer().isSneaking()) {
-
             CompoundTag pos1 = context.getStack().getOrCreateSubTag("pos1");
             CompoundTag pos2 = context.getStack().getOrCreateSubTag("pos2");
-            if (context.getWorld().isClient()) {
-                MinecraftClient.getInstance().openScreen(new BlockScreen(context.getPlayer(),
-                        new FillFunction(context.getWorld(), pos1.getInt("x"), pos1.getInt("y"), pos1.getInt("z"),
-                                pos2.getInt("x"), pos2.getInt("y"), pos2.getInt("z"))));
-            }
+
+            new FillStuff(context.getWorld(), pos1, pos2).fill(context.getWorld().getBlockState(context.getBlockPos()));
+
             return ActionResult.PASS;
         }
 
@@ -75,8 +74,7 @@ public class BuildHelperItem extends Item {
         return different ? ActionResult.SUCCESS : ActionResult.PASS;
     }
 
-    // Move to utils.
-    public static class FillFunction implements Function<ItemStack, Boolean> {
+    public static class FillStuff {
 
         private final World world;
         private final int x1;
@@ -86,14 +84,14 @@ public class BuildHelperItem extends Item {
         private final int y2;
         private final int z2;
 
-        public FillFunction(World world, int x1, int y1, int z1, int x2, int y2, int z2) {
+        public FillStuff(World world, CompoundTag pos1, CompoundTag pos2) {
             this.world = world;
-            this.x1 = x1;
-            this.y1 = y1;
-            this.z1 = z1;
-            this.x2 = x2;
-            this.y2 = y2;
-            this.z2 = z2;
+            this.x1 = pos1.getInt("x");
+            this.y1 = pos1.getInt("y");
+            this.z1 = pos1.getInt("z");
+            this.x2 = pos2.getInt("x");
+            this.y2 = pos2.getInt("y");
+            this.z2 = pos2.getInt("z");
         }
 
         public int minX() {
@@ -120,11 +118,13 @@ public class BuildHelperItem extends Item {
             return Math.max(z1, z2);
         }
 
-        @Override
-        public Boolean apply(ItemStack itemStack) {
-            // Todo: This isn't gonna work. It just sets the blocks client side, not server side.
-            //  Make it so it sets a state somewhere and next block you place gets copied.
+        public void fill(BlockState block) {
+            for (BlockPos pos : BlockPos.iterate(minX(), minY(), minZ(), maxX(), maxY(), maxZ()))
+                world.setBlockState(pos, block);
+        }
 
+        /*@Override
+        public Boolean apply(ItemStack itemStack) {
             Item item = itemStack.getItem();
             if (item instanceof BlockItem) {
                 Iterator<BlockPos> iterator = BlockPos.iterate(minX(), minY(), minZ(), maxX(), maxY(), maxZ()).iterator();
@@ -141,6 +141,6 @@ public class BuildHelperItem extends Item {
                 return true;
             }
             return false;
-        }
+        }*/
     }
 }
