@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '0.7-SNAPSHOT'
+    id 'fabric-loom' version '0.6-SNAPSHOT'
     id 'maven-publish'
 }
 
@@ -13,6 +13,10 @@ group = project.maven_group
 repositories {
     maven { url 'https://jitpack.io' }
     maven { url 'https://maven.enginehub.org/repo/' }
+    maven {
+        name = "CottonMC"
+        url = "https://server.bbkr.space/artifactory/libs-release/"
+    }
 }
 
 dependencies {
@@ -27,10 +31,12 @@ dependencies {
     // PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
     // You may need to force-disable transitiveness on them.
 
-//    implementation "com.sk89q.worldedit:worldedit-core:7.3.0-SNAPSHOT:20210310.094627-21"
+//    implementation "com.sk89q.worldedit:worldedit-core:7.3.0-SNAPSHOT"
 //    modImplementation "com.sk89q.worldedit:worldedit-fabric-mc1.16.4:7.3.0-SNAPSHOT"
+//    include "com.sk89q.worldedit:worldedit-fabric-mc1.16.4:7.3.0-SNAPSHOT"
 
 //    modImplementation 'com.github.CoolMineman:BitsAndChisels:master-SNAPSHOT'
+//    include 'com.github.CoolMineman:BitsAndChisels:master-SNAPSHOT'
 }
 
 processResources {

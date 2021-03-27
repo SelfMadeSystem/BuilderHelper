@@ -1,5 +1,5 @@
 {
-  "item.builder_helper.build_helper_item": "Fill",
+  "item.builder_helper.fill_item": "Fill",
   "message.builder_helper.pos1": "Pos 1 has been set to (%d, %d, %d).",
   "message.builder_helper.pos2": "Pos 2 has been set to (%d, %d, %d)."
 }

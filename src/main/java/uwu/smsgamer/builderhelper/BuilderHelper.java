@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import uwu.smsgamer.builderhelper.compat.CompatibilityLoader;
 import uwu.smsgamer.builderhelper.items.FillItem;
 
 public class BuilderHelper implements ModInitializer {
@@ -14,5 +15,6 @@ public class BuilderHelper implements ModInitializer {
     @Override
     public void onInitialize() {
         Registry.register(Registry.ITEM, new Identifier(MOD_ID, "fill_item"), FILL_ITEM);
+        CompatibilityLoader.loadCompatibilityLoaders();
     }
 }
