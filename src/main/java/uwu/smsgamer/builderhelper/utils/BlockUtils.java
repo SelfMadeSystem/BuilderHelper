@@ -30,7 +30,6 @@ public class BlockUtils {
 
     public static void walls(World world, int x1, int y1, int z1, int x2, int y2, int z2, BlockState state, PlayerEntity player) {
         int minX = Math.min(x1, x2);
-
         int minY = Math.min(y1, y2);
         int minZ = Math.min(z1, z2);
         int maxX = Math.max(x1, x2);
@@ -38,6 +37,17 @@ public class BlockUtils {
         int maxZ = Math.max(z1, z2);
 
         getInstance().wallBlocks(world, minX, minY, minZ, maxX, maxY, maxZ, state, player);
+    }
+
+    public static void faces(World world, int x1, int y1, int z1, int x2, int y2, int z2, BlockState state, PlayerEntity player) {
+        int minX = Math.min(x1, x2);
+        int minY = Math.min(y1, y2);
+        int minZ = Math.min(z1, z2);
+        int maxX = Math.max(x1, x2);
+        int maxY = Math.max(y1, y2);
+        int maxZ = Math.max(z1, z2);
+
+        getInstance().faceBlocks(world, minX, minY, minZ, maxX, maxY, maxZ, state, player);
     }
 
     protected void fillBlocks(World world, int minX, int minY, int minZ, int maxX, int maxY, int maxZ, BlockState state, PlayerEntity player) {
@@ -48,6 +58,21 @@ public class BlockUtils {
         for (int x = minX; x <= maxX; x++) {
             for (int y = minY; y <= maxY; y++) {
                 if (x == minX || x == maxX) {
+                    for (int z = minZ; z <= maxZ; z++) {
+                        world.setBlockState(new BlockPos(x, y, z), state);
+                    }
+                } else {
+                    world.setBlockState(new BlockPos(x, y, minZ), state);
+                    world.setBlockState(new BlockPos(x, y, maxZ), state);
+                }
+            }
+        }
+    }
+
+    protected void faceBlocks(World world, int minX, int minY, int minZ, int maxX, int maxY, int maxZ, BlockState state, PlayerEntity player) {
+        for (int x = minX; x <= maxX; x++) {
+            for (int y = minY; y <= maxY; y++) {
+                if (x == minX || x == maxX || y == minY || y == maxY) {
                     for (int z = minZ; z <= maxZ; z++) {
                         world.setBlockState(new BlockPos(x, y, z), state);
                     }

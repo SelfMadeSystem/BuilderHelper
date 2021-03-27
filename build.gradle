@@ -17,6 +17,33 @@ repositories {
         name = "CottonMC"
         url = "https://server.bbkr.space/artifactory/libs-release/"
     }
+
+    //// BitsAndChisels stuff Start
+    // where grondag's mods live
+    maven {
+        name = "dblsaiko"
+        url = "https://maven.dblsaiko.net/"
+    }
+    maven {
+        name = "Cotton"
+        url = "http://server.bbkr.space:8081/artifactory/libs-release/"
+    }
+    // REI, odds and ends
+    maven {
+        name = "CurseForge"
+        url = "https://minecraft.curseforge.com/api/maven"
+    }
+    maven {
+        url = 'https://raw.githubusercontent.com/Devan-Kerman/Devan-Repo/master/'
+    }
+    maven {
+        url "https://www.cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
+    maven { url "https://maven.shedaniel.me/" }
+    //// BitsAndChisels stuff End
 }
 
 dependencies {
@@ -31,12 +58,16 @@ dependencies {
     // PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
     // You may need to force-disable transitiveness on them.
 
-//    implementation "com.sk89q.worldedit:worldedit-core:7.3.0-SNAPSHOT"
-//    modImplementation "com.sk89q.worldedit:worldedit-fabric-mc1.16.4:7.3.0-SNAPSHOT"
-//    include "com.sk89q.worldedit:worldedit-fabric-mc1.16.4:7.3.0-SNAPSHOT"
+    // implementation "com.sk89q.worldedit:worldedit-fabric-mc1.16.4:7.3.0-SNAPSHOT"
 
-//    modImplementation 'com.github.CoolMineman:BitsAndChisels:master-SNAPSHOT'
-//    include 'com.github.CoolMineman:BitsAndChisels:master-SNAPSHOT'
+    modCompileOnly ("com.sk89q.worldedit:worldedit-fabric-mc1.16.4:7.3.0-SNAPSHOT") {
+        transitive false
+    }
+    modCompileOnly ("com.sk89q.worldedit:worldedit-core:7.3.0-SNAPSHOT") {
+        transitive false
+    }
+
+    modImplementation 'com.github.CoolMineman:BitsAndChisels:master-SNAPSHOT'
 }
 
 processResources {
