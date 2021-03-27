@@ -10,8 +10,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import uwu.smsgamer.builderhelper.utils.BlockUtils;
 
-public class FillItem extends Item {
-    public FillItem(Settings settings) {
+public class WallItem extends Item {
+    public WallItem(Settings settings) {
         super(settings);
     }
 
@@ -23,7 +23,7 @@ public class FillItem extends Item {
             CompoundTag pos2 = stack.getSubTag("pos2");
 
             if (pos1 != null && pos2 != null)
-                fill(world, pos1, pos2, Blocks.AIR.getDefaultState(), miner);
+                walls(world, pos1, pos2, Blocks.AIR.getDefaultState(), miner);
 
             return false;
         }
@@ -52,7 +52,7 @@ public class FillItem extends Item {
             CompoundTag pos2 = context.getStack().getSubTag("pos2");
 
             if (pos1 != null && pos2 != null)
-                fill(context.getWorld(), pos1, pos2, context.getWorld().getBlockState(context.getBlockPos()), context.getPlayer());
+                walls(context.getWorld(), pos1, pos2, context.getWorld().getBlockState(context.getBlockPos()), context.getPlayer());
 
             return ActionResult.PASS;
         }
@@ -77,8 +77,8 @@ public class FillItem extends Item {
         return different ? ActionResult.SUCCESS : ActionResult.PASS;
     }
 
-    private void fill(World world, CompoundTag pos1, CompoundTag pos2, BlockState state, PlayerEntity player) {
-        BlockUtils.fill(world, pos1.getInt("x"), pos1.getInt("y"), pos1.getInt("z"),
+    private void walls(World world, CompoundTag pos1, CompoundTag pos2, BlockState state, PlayerEntity player) {
+        BlockUtils.walls(world, pos1.getInt("x"), pos1.getInt("y"), pos1.getInt("z"),
                 pos2.getInt("x"), pos2.getInt("y"), pos2.getInt("z"), state, player);
     }
 }
