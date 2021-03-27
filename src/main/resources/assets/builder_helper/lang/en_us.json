@@ -1,4 +1,6 @@
 {
+  "item.builder_helper.wood_chisel": "Simple Wood Chisel",
+  "item.builder_helper.gold_chisel": "Simple Gold Chisel",
   "item.builder_helper.hollow_block_item": "Hollow Block",
   "item.builder_helper.fill_item": "Fill",
   "item.builder_helper.walls_item": "Walls",

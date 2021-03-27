@@ -6,6 +6,17 @@ import uwu.smsgamer.builderhelper.compat.worldedit.utils.WEBlockUtils;
 import uwu.smsgamer.builderhelper.utils.BlockUtils;
 
 public class WorldEditCompat extends CompatibilityLoader {
+    private static WorldEditCompat INSTANCE;
+
+    {
+        INSTANCE = this;
+    }
+
+    public static WorldEditCompat getInstance() {
+        if (INSTANCE == null) new WorldEditCompat();
+        return INSTANCE;
+    }
+
     @Override
     public boolean shouldInitialize() {
         return FabricLoader.getInstance().isModLoaded("worldedit");
