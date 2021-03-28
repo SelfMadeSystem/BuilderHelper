@@ -14,6 +14,7 @@ public class BACCompat extends CompatibilityLoader {
     public HollowBlockItem HOLLOW_BLOCK_ITEM;
     public GoldChisel GOLD_CHISEL_ITEM;
     public WoodChisel WOOD_CHISEL_ITEM;
+    public BigBitItem BIG_BIT_ITEM;
 
     {
         INSTANCE = this;
@@ -35,11 +36,14 @@ public class BACCompat extends CompatibilityLoader {
         GOLD_CHISEL_ITEM = new GoldChisel(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
         WOOD_CHISEL_ITEM = new WoodChisel(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
         HOLLOW_BLOCK_ITEM = new HollowBlockItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
+        BIG_BIT_ITEM = new BigBitItem(new FabricItemSettings().group(ItemGroup.MISC).maxCount(1));
         Registry.register(Registry.ITEM, new Identifier(BuilderHelper.MOD_ID, "hollow_block_item"), HOLLOW_BLOCK_ITEM);
         Registry.register(Registry.ITEM, new Identifier(BuilderHelper.MOD_ID, "gold_chisel"), GOLD_CHISEL_ITEM);
         Registry.register(Registry.ITEM, new Identifier(BuilderHelper.MOD_ID, "wood_chisel"), WOOD_CHISEL_ITEM);
+        Registry.register(Registry.ITEM, new Identifier(BuilderHelper.MOD_ID, "big_bit_item"), BIG_BIT_ITEM);
         GOLD_CHISEL_ITEM.init();
         WOOD_CHISEL_ITEM.init();
+        BIG_BIT_ITEM.init();
     }
 
     @Override
@@ -47,5 +51,6 @@ public class BACCompat extends CompatibilityLoader {
         HOLLOW_BLOCK_ITEM.initClient();
         GOLD_CHISEL_ITEM.initClient();
         WOOD_CHISEL_ITEM.initClient();
+        BIG_BIT_ITEM.initClient();
     }
 }
