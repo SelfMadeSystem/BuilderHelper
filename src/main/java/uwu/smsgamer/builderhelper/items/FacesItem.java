@@ -88,14 +88,15 @@ public class FacesItem extends Item implements BoxRenderableItem{
 
     @Override
     public void drawMainBox(MatrixStack stacks, VertexConsumer buffer, Vec3d offset, BlockPos pos1, BlockPos pos2, float alpha) {
-        this.drawBox(stacks, buffer, offset, pos1, pos2, alpha);
-        /*int minX = Math.min(pos1.getX(), pos2.getX());
+        int minX = Math.min(pos1.getX(), pos2.getX());
         int minY = Math.min(pos1.getY(), pos2.getY());
         int minZ = Math.min(pos1.getZ(), pos2.getZ());
         int maxX = Math.max(pos1.getX(), pos2.getX());
         int maxY = Math.max(pos1.getY(), pos2.getY());
         int maxZ = Math.max(pos1.getZ(), pos2.getZ());
-        this.drawBox(stacks, buffer, offset, new BlockPos(minX, minY, minZ), new BlockPos(maxX, maxY, minZ), alpha);
+        this.drawBox(stacks, buffer, offset, pos1, pos2, alpha);
+        this.drawBox(stacks, buffer, offset, new BlockPos(minX + 1, minY + 1, minZ + 1), new BlockPos(maxX - 1, maxY - 1, maxZ - 1), alpha);
+        /*this.drawBox(stacks, buffer, offset, new BlockPos(minX, minY, minZ), new BlockPos(maxX, maxY, minZ), alpha);
         this.drawBox(stacks, buffer, offset, new BlockPos(maxX, minY, minZ), new BlockPos(maxX, maxY, maxZ), alpha);
         this.drawBox(stacks, buffer, offset, new BlockPos(maxX, minY, maxZ), new BlockPos(minX, maxY, maxZ), alpha);
         this.drawBox(stacks, buffer, offset, new BlockPos(minX, minY, maxZ), new BlockPos(minX, maxY, minZ), alpha);
