@@ -7,6 +7,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import uwu.smsgamer.builderhelper.compat.CompatibilityLoader;
 import uwu.smsgamer.builderhelper.items.*;
+import uwu.smsgamer.builderhelper.render.RenderManager;
 
 public class BuilderHelper implements ModInitializer {
     public static final String MOD_ID = "builder_helper";
@@ -19,6 +20,7 @@ public class BuilderHelper implements ModInitializer {
         Registry.register(Registry.ITEM, new Identifier(MOD_ID, "fill_item"), FILL_ITEM);
         Registry.register(Registry.ITEM, new Identifier(MOD_ID, "walls_item"), WALLS_ITEM);
         Registry.register(Registry.ITEM, new Identifier(MOD_ID, "faces_item"), FACES_ITEM);
+        RenderManager.getInstance().initClient();
         CompatibilityLoader.loadCompatibilityLoaders();
     }
 }

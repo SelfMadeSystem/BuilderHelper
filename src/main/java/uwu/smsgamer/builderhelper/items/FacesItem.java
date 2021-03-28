@@ -1,16 +1,20 @@
 package uwu.smsgamer.builderhelper.items;
 
+import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
 import net.minecraft.block.*;
+import net.minecraft.client.render.*;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.*;
 import net.minecraft.world.World;
-import uwu.smsgamer.builderhelper.utils.BlockUtils;
+import uwu.smsgamer.builderhelper.render.BoxRenderableItem;
+import uwu.smsgamer.builderhelper.utils.*;
 
-public class FacesItem extends Item {
+public class FacesItem extends Item implements BoxRenderableItem{
     public FacesItem(Settings settings) {
         super(settings);
     }
@@ -80,5 +84,22 @@ public class FacesItem extends Item {
     private void faces(World world, CompoundTag pos1, CompoundTag pos2, BlockState state, PlayerEntity player) {
         BlockUtils.faces(world, pos1.getInt("x"), pos1.getInt("y"), pos1.getInt("z"),
                 pos2.getInt("x"), pos2.getInt("y"), pos2.getInt("z"), state, player);
+    }
+
+    @Override
+    public void drawMainBox(MatrixStack stacks, VertexConsumer buffer, Vec3d offset, BlockPos pos1, BlockPos pos2, float alpha) {
+        this.drawBox(stacks, buffer, offset, pos1, pos2, alpha);
+        /*int minX = Math.min(pos1.getX(), pos2.getX());
+        int minY = Math.min(pos1.getY(), pos2.getY());
+        int minZ = Math.min(pos1.getZ(), pos2.getZ());
+        int maxX = Math.max(pos1.getX(), pos2.getX());
+        int maxY = Math.max(pos1.getY(), pos2.getY());
+        int maxZ = Math.max(pos1.getZ(), pos2.getZ());
+        this.drawBox(stacks, buffer, offset, new BlockPos(minX, minY, minZ), new BlockPos(maxX, maxY, minZ), alpha);
+        this.drawBox(stacks, buffer, offset, new BlockPos(maxX, minY, minZ), new BlockPos(maxX, maxY, maxZ), alpha);
+        this.drawBox(stacks, buffer, offset, new BlockPos(maxX, minY, maxZ), new BlockPos(minX, maxY, maxZ), alpha);
+        this.drawBox(stacks, buffer, offset, new BlockPos(minX, minY, maxZ), new BlockPos(minX, maxY, minZ), alpha);
+        this.drawBox(stacks, buffer, offset, new BlockPos(minX, minY, minZ), new BlockPos(maxX, minY, maxZ), alpha);
+        this.drawBox(stacks, buffer, offset, new BlockPos(minX, maxY, minZ), new BlockPos(maxX, maxY, maxZ), alpha);*/
     }
 }
