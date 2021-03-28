@@ -44,6 +44,7 @@ public class BACCompat extends CompatibilityLoader {
 
     @Override
     public void onInitializeClient() {
+        HOLLOW_BLOCK_ITEM.initClient();
         GOLD_CHISEL_ITEM.initClient();
         WOOD_CHISEL_ITEM.initClient();
     }
