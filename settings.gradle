@@ -8,9 +8,3 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
-
-sourceControl {
-    gitRepository("https://github.com/EngineHub/WorldEdit.git") {
-        producesModule("com.sk89q.worldedit:worldedit-fabric-mc1.16.3")
-    }
-}
